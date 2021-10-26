@@ -1,4 +1,6 @@
 # TBD
+### Fixes
+* Fix GO package name in Golang API
 
 # 0.1.0
 * Created datastore service API protobuf definition in `datastore_service.proto` file
