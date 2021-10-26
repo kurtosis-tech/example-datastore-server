@@ -34,6 +34,7 @@ github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
+github.com/kurtosis-tech/example-datastore v0.0.0-20211026130525-15c8a46aeba9 h1:npnQEIJC5jXgzYi1+58lK1KW1nSt+zLADLoFs+U+txU=
 github.com/kurtosis-tech/example-datastore/api/golang v0.0.0-20211026130525-15c8a46aeba9 h1:NNW6VLkNxnaVjH7RqShS2FLw2Av4f31lKAp4rbI9hqg=
 github.com/kurtosis-tech/example-datastore/api/golang v0.0.0-20211026130525-15c8a46aeba9/go.mod h1:Saq5MaYBZg1hOfXvabhUIswkyKE1uvnhNWyJvsC7HSM=
 github.com/kurtosis-tech/minimal-grpc-server/golang v0.0.0-20210921153930-d70d7667c51b h1:aARmILachF0sbwuYmtvY5Xm3DdhqwSI+wxHIDVu7oeo=

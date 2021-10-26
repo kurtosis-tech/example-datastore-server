@@ -1,4 +1,4 @@
-module github.com/kurtosis-tech/example-datastore/server
+module github.com/kurtosis-tech/example-datastore-server/server
 
 go 1.15
 

@@ -7,8 +7,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/kurtosis-tech/example-datastore/api/golang/datastore_rpc_api_bindings"
-	"github.com/kurtosis-tech/example-datastore/server/datastore_service"
+	"github.com/kurtosis-tech/example-datastore-server/api/golang/datastore_rpc_api_bindings"
+	"github.com/kurtosis-tech/example-datastore-server/server/datastore_service"
 	minimal_grpc_server "github.com/kurtosis-tech/minimal-grpc-server/golang/server"
 	"github.com/palantir/stacktrace"
 	"github.com/sirupsen/logrus"
