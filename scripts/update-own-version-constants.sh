@@ -12,7 +12,7 @@ root_dirpath="$(dirname "${script_dirpath}")"
 # ==================================================================================================
 UPDATE_VERSION_IN_FILE_SCRIPT_FILENAME="update-version-in-file.sh" # From devtools; expected to be on PATH
 
-CONSTANT_FILE_RELATIVE_FILEPATH="example_datastore_server_version/example_datastore_server_version.go"
+CONSTANT_FILE_RELATIVE_FILEPATH="server/example_datastore_server_version/example_datastore_server_version.go"
 CONSTANT_PATTERN="ExampleDatastoreServerVersion = \"%s\""
 
 

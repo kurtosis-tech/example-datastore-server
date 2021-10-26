@@ -1,5 +1,5 @@
 {
-    "//": "Example datastore server API",
+    "//": "Example datastore server Typescript client",
     "version": "0.1.0",
     "description": "This repo contains a Typescript client for communicating with the datastore API server",
     "main": "./build/index",
