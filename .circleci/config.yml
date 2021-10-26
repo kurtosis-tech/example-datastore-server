@@ -10,7 +10,7 @@ orbs:
 #  images), so we run everything inside a single job.
 # See also: https://discuss.circleci.com/t/can-docker-images-be-preserved-between-jobs-in-a-workflow-without-a-manual-load-save/23388/12
 jobs:
-  check_golang:
+  check_api_golang:
     docker:
       - image: cimg/go:1.15.13
     steps:
@@ -28,9 +28,9 @@ jobs:
       - run: |
           git config --global url."https://${KURTOSISBOT_GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
           go env -w "GOPRIVATE=github.com/kurtosis-tech/*"
-          golang/scripts/build.sh
+          api/golang/scripts/build.sh
 
-  check_typescript:
+  check_api_typescript:
     docker:
       - image: cimg/node:14.17.1
     steps:
@@ -43,14 +43,14 @@ jobs:
             circleci-agent step halt
           fi
 
-      - run: typescript/scripts/build.sh
+      - run: api/typescript/scripts/build.sh
 
   publish_typescript:
     docker:
       - image: cimg/node:14.17.1
     steps:
       - checkout
-      - run: typescript/scripts/build.sh
+      - run: api/typescript/scripts/build.sh
       - npm-publisher/publish-from-package-version:
           package-path: typescript
           publish-token-variable: NPMJS_AUTH_TOKEN
@@ -66,7 +66,7 @@ workflows:
               ignore:
                 - develop
                 - master
-      - check_golang:
+      - check_api_golang:
           context:
             # This pulls in KurtosisBot's Github token, so that we can read from our private repos
             - github-user
@@ -75,7 +75,7 @@ workflows:
               ignore:
                 - develop
                 - master
-      - check_typescript:
+      - check_api_typescript:
           filters:
             branches:
               ignore:

@@ -1,0 +1,54 @@
+syntax = "proto3";
+package datastore_api;
+// NOTE: It sucks that we have this Go-specific logic inside this file (which should be language-agnostic). However, the Protobuf team have
+// taken a hard stance on this being the way it should be done, so we have to do it this way.
+option go_package = "github.com/kurtosis-tech/example-datastore/api/golang/datastore_rpc_api_bindings";
+
+import "google/protobuf/empty.proto";
+
+service DatastoreService {
+  //Used to check service availability
+  rpc IsAvailable (google.protobuf.Empty) returns (google.protobuf.Empty) {};
+  //Checks if a given key Exists
+  rpc Exists(ExistsArgs) returns (ExistsResponse) {};
+  //Gets the value for a given key from the datastore
+  rpc Get(GetArgs) returns (GetResponse) {}
+  //Puts a value for the given key into the datastore
+  rpc Upsert(UpsertArgs) returns (google.protobuf.Empty) {}
+}
+
+// ==============================================================================================
+//                                            Exists
+// ==============================================================================================
+message ExistsArgs {
+  //The key value, used to check if a record exists
+  string key = 1;
+}
+
+message ExistsResponse {
+  //It will be true if the key is in the datastore
+  bool exists = 1;
+}
+
+// ==============================================================================================
+//                                              Get
+// ==============================================================================================
+message GetArgs {
+  //The key value, used to find and get a datastore record
+  string key = 1;
+}
+
+message GetResponse {
+  //The string value of a datastore record
+  string value = 1;
+}
+
+// ==============================================================================================
+//                                            Upsert
+// ==============================================================================================
+message UpsertArgs {
+  //The key of the value
+  string key = 1;
+  //The string value that will be saved into the datastore
+  string value = 2;
+}
