@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DatastoreServiceClient interface {
 	//Used to check service availability
-	Health(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	IsAvailable(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	//Checks if a given key Exists
 	Exists(ctx context.Context, in *ExistsArgs, opts ...grpc.CallOption) (*ExistsResponse, error)
 	//Gets the value for a given key from the datastore
@@ -37,9 +37,9 @@ func NewDatastoreServiceClient(cc grpc.ClientConnInterface) DatastoreServiceClie
 	return &datastoreServiceClient{cc}
 }
 
-func (c *datastoreServiceClient) Health(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *datastoreServiceClient) IsAvailable(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/datastore_api.DatastoreService/Health", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/datastore_api.DatastoreService/IsAvailable", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *datastoreServiceClient) Upsert(ctx context.Context, in *UpsertArgs, opt
 // for forward compatibility
 type DatastoreServiceServer interface {
 	//Used to check service availability
-	Health(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
+	IsAvailable(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
 	//Checks if a given key Exists
 	Exists(context.Context, *ExistsArgs) (*ExistsResponse, error)
 	//Gets the value for a given key from the datastore
@@ -92,8 +92,8 @@ type DatastoreServiceServer interface {
 type UnimplementedDatastoreServiceServer struct {
 }
 
-func (UnimplementedDatastoreServiceServer) Health(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Health not implemented")
+func (UnimplementedDatastoreServiceServer) IsAvailable(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsAvailable not implemented")
 }
 func (UnimplementedDatastoreServiceServer) Exists(context.Context, *ExistsArgs) (*ExistsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Exists not implemented")
@@ -117,20 +117,20 @@ func RegisterDatastoreServiceServer(s grpc.ServiceRegistrar, srv DatastoreServic
 	s.RegisterService(&DatastoreService_ServiceDesc, srv)
 }
 
-func _DatastoreService_Health_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DatastoreService_IsAvailable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatastoreServiceServer).Health(ctx, in)
+		return srv.(DatastoreServiceServer).IsAvailable(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datastore_api.DatastoreService/Health",
+		FullMethod: "/datastore_api.DatastoreService/IsAvailable",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatastoreServiceServer).Health(ctx, req.(*emptypb.Empty))
+		return srv.(DatastoreServiceServer).IsAvailable(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -197,8 +197,8 @@ var DatastoreService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DatastoreServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Health",
-			Handler:    _DatastoreService_Health_Handler,
+			MethodName: "IsAvailable",
+			Handler:    _DatastoreService_IsAvailable_Handler,
 		},
 		{
 			MethodName: "Exists",

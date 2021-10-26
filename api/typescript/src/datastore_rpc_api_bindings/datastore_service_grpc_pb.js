@@ -74,8 +74,8 @@ function deserialize_google_protobuf_Empty(buffer_arg) {
 
 var DatastoreServiceService = exports.DatastoreServiceService = {
   // Used to check service availability
-health: {
-    path: '/datastore_api.DatastoreService/Health',
+isAvailable: {
+    path: '/datastore_api.DatastoreService/IsAvailable',
     requestStream: false,
     responseStream: false,
     requestType: google_protobuf_empty_pb.Empty,

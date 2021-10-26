@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 
 service DatastoreService {
   //Used to check service availability
-  rpc Health (google.protobuf.Empty) returns (google.protobuf.Empty) {};
+  rpc IsAvailable (google.protobuf.Empty) returns (google.protobuf.Empty) {};
   //Checks if a given key Exists
   rpc Exists(ExistsArgs) returns (ExistsResponse) {};
   //Gets the value for a given key from the datastore

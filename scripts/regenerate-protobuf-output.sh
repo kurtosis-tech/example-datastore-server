@@ -9,7 +9,7 @@ root_dirpath="$(dirname "${script_dirpath}")"
 # ================================ CONSTANTS =======================================================
 API_DIRNAME="api"
 GENERATOR_SCRIPT_FILENAME="generate-protobuf-bindings.sh"  # Must be on the PATH
-DATASTORE_API_DIRNAME="datastore-rpc-api"
+DATASTORE_API_DIRNAME="protobuf"
 GOLANG_DIRNAME="golang"
 TYPESCRIPT_DIRNAME="typescript"
 RPC_BINDINGS_DIRNAME="datastore_rpc_api_bindings"
