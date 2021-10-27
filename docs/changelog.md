@@ -1,4 +1,6 @@
 # TBD
+
+# 0.1.1
 ### Features
 * Created `DatastoreService` which implements the service on the server side
 * Configured the `RPC` server that will handle the `DatastoreService` requests
