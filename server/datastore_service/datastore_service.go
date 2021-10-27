@@ -3,8 +3,8 @@ package datastore_service
 import (
 	"context"
 	"github.com/kurtosis-tech/example-datastore-server/api/golang/datastore_rpc_api_bindings"
-	"google.golang.org/protobuf/types/known/emptypb"
 	"github.com/palantir/stacktrace"
+	"google.golang.org/protobuf/types/known/emptypb"
 	"sync"
 )
 
@@ -29,14 +29,10 @@ func (datastoreService DatastoreService) Exists(ctx context.Context, args *datas
 
 	key := args.Key
 
-	var exists bool
 	_, found := datastoreService.repository[key]
-	if found {
-		exists = true
-	}
 
 	response := &datastore_rpc_api_bindings.ExistsResponse{
-		Exists: exists,
+		Exists: found,
 	}
 
 	return response,nil

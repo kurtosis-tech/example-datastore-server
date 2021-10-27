@@ -2,6 +2,7 @@
 .git
 .github
 .gitignore
+.dockerignore
 .idea
 .vscode
 
@@ -10,3 +11,4 @@ LICENSE
 
 scripts
 engine/Dockerfile
+

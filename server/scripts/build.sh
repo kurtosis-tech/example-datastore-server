@@ -3,7 +3,7 @@
 
 set -euo pipefail   # Bash "strict mode"
 script_dirpath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-root_dirpath="$(dirname "${script_dirpath}")"
+server_root_dirpath="$(dirname "${script_dirpath}")"
 
 # ==================================================================================================
 #                                             Constants
@@ -11,22 +11,22 @@ root_dirpath="$(dirname "${script_dirpath}")"
 source "${script_dirpath}/_constants.env"
 
 BUILD_DIRNAME="build"
-MAIN_BINARY_OUTPUT_FILE="example-datastore-server.bin"
-MAIN_BINARY_OUTPUT_PATH="${root_dirpath}/${BUILD_DIRNAME}/${MAIN_BINARY_OUTPUT_FILE}"
-MAIN_GO_FILEPATH="${root_dirpath}/main.go"
+MAIN_BINARY_OUTPUT_FILENAME="example-datastore-server.bin"
+MAIN_BINARY_OUTPUT_FILEPATH="${server_root_dirpath}/${BUILD_DIRNAME}/${MAIN_BINARY_OUTPUT_FILENAME}"
+MAIN_GO_FILEPATH="${server_root_dirpath}/main.go"
 
 # =============================================================================
 #                                 Main Code
 # =============================================================================
 # Checks if dockerignore file is in the root path
-if ! [ -f "${root_dirpath}"/.dockerignore ]; then
-  echo "Error: No .dockerignore file found in root '${root_dirpath}'; this is required so Docker caching is enabled and the engine image builds remain quick" >&2
+if ! [ -f "${server_root_dirpath}"/.dockerignore ]; then
+  echo "Error: No .dockerignore file found in server root '${server_root_dirpath}'; this is required so Docker caching is enabled and the image builds remain quick" >&2
   exit 1
 fi
 
 # Test code
 echo "Running unit tests..."
-cd "${root_dirpath}"
+cd "${server_root_dirpath}"
 if ! go test "./..."; then
   echo "Tests failed!" >&2
   exit 1
@@ -35,7 +35,7 @@ echo "Tests succeeded"
 
 # Build binary for packaging inside an Alpine Linux image
 echo "Building example datastore server code '${MAIN_GO_FILEPATH}'..."
-if ! CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o "${MAIN_BINARY_OUTPUT_PATH}" "${MAIN_GO_FILEPATH}"; then
+if ! CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o "${MAIN_BINARY_OUTPUT_FILEPATH}" "${MAIN_GO_FILEPATH}"; then
   echo "Error: Code build of the example datastore server failed" >&2
   exit 1
 fi
@@ -48,10 +48,10 @@ if ! docker_tag="$(bash "${get_docker_image_tag_script_filepath}")"; then
 fi
 
 # Build Docker image
-dockerfile_filepath="${root_dirpath}/Dockerfile"
+dockerfile_filepath="${server_root_dirpath}/Dockerfile"
 image_name="${IMAGE_ORG_AND_REPO}:${docker_tag}"
 echo "Building example datastore server into a Docker image named '${image_name}'..."
-if ! docker build -t "${image_name}" -f "${dockerfile_filepath}" "${root_dirpath}"; then
+if ! docker build -t "${image_name}" -f "${dockerfile_filepath}" "${server_root_dirpath}"; then
   echo "Error: Docker build of the example datastore server failed" >&2
   exit 1
 fi
