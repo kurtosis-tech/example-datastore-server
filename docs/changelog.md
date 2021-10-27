@@ -1,5 +1,10 @@
 # TBD
 
+# 0.2.0
+### Breaking Changes
+* Updated protobuf file, `GetResponse.value` field type and `UpsertArgs.value` field type were changed from string to uint32
+  * Users should use unit32 field type when are setting these values
+
 # 0.1.1
 ### Features
 * Created `DatastoreService` which implements the service on the server side

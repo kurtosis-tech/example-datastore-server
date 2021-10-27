@@ -39,8 +39,8 @@ message GetArgs {
 }
 
 message GetResponse {
-  //The string value of a datastore record
-  string value = 1;
+  //The value of a datastore record
+  uint32 value = 1;
 }
 
 // ==============================================================================================
@@ -49,6 +49,6 @@ message GetResponse {
 message UpsertArgs {
   //The key of the value
   string key = 1;
-  //The string value that will be saved into the datastore
-  string value = 2;
+  //The value that will be saved into the datastore
+  uint32 value = 2;
 }
