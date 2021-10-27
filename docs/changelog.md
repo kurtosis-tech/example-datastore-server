@@ -1,5 +1,12 @@
 # TBD
 
+# 0.3.1
+### Changes
+* Exported `EXAMPLE_DATASTORE_SERVER_VERSION` constant in Typescript library, allowing users to get it
+
+### Fixes
+* Fix `Dockerfile` filepath in `.dockerignore` file
+
 # 0.3.0
 ### Changes
 * Renamed `DatastoreService.repository` field to `DatastoreService.keyValueStore`
