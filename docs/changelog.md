@@ -1,4 +1,6 @@
 # TBD
+
+# 0.3.1
 ### Changes
 * Exported `EXAMPLE_DATASTORE_SERVER_VERSION` constant in Typescript library, allowing users to get it
 
