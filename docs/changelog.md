@@ -1,4 +1,10 @@
 # TBD
+### Changes
+* Renamed `DatastoreService.repository` field to `DatastoreService.keyValueStore`
+
+### Breaking Changes
+* Revert change in protobuf file, `GetResponse.value` field type and `UpsertArgs.value` both are string type again
+  * Users should use string field type when are setting these values
 
 # 0.2.0
 ### Breaking Changes

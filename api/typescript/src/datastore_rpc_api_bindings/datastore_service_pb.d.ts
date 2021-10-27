@@ -65,8 +65,8 @@ export namespace GetArgs {
 }
 
 export class GetResponse extends jspb.Message {
-  getValue(): number;
-  setValue(value: number): void;
+  getValue(): string;
+  setValue(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetResponse.AsObject;
@@ -80,7 +80,7 @@ export class GetResponse extends jspb.Message {
 
 export namespace GetResponse {
   export type AsObject = {
-    value: number,
+    value: string,
   }
 }
 
@@ -88,8 +88,8 @@ export class UpsertArgs extends jspb.Message {
   getKey(): string;
   setKey(value: string): void;
 
-  getValue(): number;
-  setValue(value: number): void;
+  getValue(): string;
+  setValue(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UpsertArgs.AsObject;
@@ -104,7 +104,7 @@ export class UpsertArgs extends jspb.Message {
 export namespace UpsertArgs {
   export type AsObject = {
     key: string,
-    value: number,
+    value: string,
   }
 }
 
