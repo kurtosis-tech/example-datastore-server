@@ -1,4 +1,7 @@
 # TBD
+### Breaking Changes
+* Updated protobuf file, `GetResponse.value` field type and `UpsertArgs.value` field type were changed from string to uint32
+  * Users should use unit32 field type when are setting these values
 
 # 0.1.1
 ### Features
