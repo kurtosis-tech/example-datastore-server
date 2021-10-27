@@ -1,4 +1,6 @@
 # TBD
+
+# 0.3.0
 ### Changes
 * Renamed `DatastoreService.repository` field to `DatastoreService.keyValueStore`
 
