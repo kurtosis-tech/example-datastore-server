@@ -549,7 +549,7 @@ proto.datastore_api.GetResponse.prototype.toObject = function(opt_includeInstanc
  */
 proto.datastore_api.GetResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    value: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    value: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -587,7 +587,7 @@ proto.datastore_api.GetResponse.deserializeBinaryFromReader = function(msg, read
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setValue(value);
       break;
     default:
@@ -620,8 +620,8 @@ proto.datastore_api.GetResponse.prototype.serializeBinary = function() {
 proto.datastore_api.GetResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getValue();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -630,20 +630,20 @@ proto.datastore_api.GetResponse.serializeBinaryToWriter = function(message, writ
 
 
 /**
- * optional uint32 value = 1;
- * @return {number}
+ * optional string value = 1;
+ * @return {string}
  */
 proto.datastore_api.GetResponse.prototype.getValue = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.datastore_api.GetResponse} returns this
  */
 proto.datastore_api.GetResponse.prototype.setValue = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -680,7 +680,7 @@ proto.datastore_api.UpsertArgs.prototype.toObject = function(opt_includeInstance
 proto.datastore_api.UpsertArgs.toObject = function(includeInstance, msg) {
   var f, obj = {
     key: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    value: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    value: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -722,7 +722,7 @@ proto.datastore_api.UpsertArgs.deserializeBinaryFromReader = function(msg, reade
       msg.setKey(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setValue(value);
       break;
     default:
@@ -762,8 +762,8 @@ proto.datastore_api.UpsertArgs.serializeBinaryToWriter = function(message, write
     );
   }
   f = message.getValue();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       2,
       f
     );
@@ -790,20 +790,20 @@ proto.datastore_api.UpsertArgs.prototype.setKey = function(value) {
 
 
 /**
- * optional uint32 value = 2;
- * @return {number}
+ * optional string value = 2;
+ * @return {string}
  */
 proto.datastore_api.UpsertArgs.prototype.getValue = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.datastore_api.UpsertArgs} returns this
  */
 proto.datastore_api.UpsertArgs.prototype.setValue = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
