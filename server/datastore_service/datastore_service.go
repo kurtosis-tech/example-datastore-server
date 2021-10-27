@@ -11,11 +11,11 @@ import (
 type DatastoreService struct {
 	// This embedding is required by gRPC
 	datastore_rpc_api_bindings.UnimplementedDatastoreServiceServer
-	repository map[string]string
+	repository map[string]uint32
 	mutex sync.Mutex
 }
 
-func NewDatastoreService(repository map[string]string, mutex sync.Mutex) *DatastoreService {
+func NewDatastoreService(repository map[string]uint32, mutex sync.Mutex) *DatastoreService {
 	return &DatastoreService{repository: repository, mutex: mutex}
 }
 

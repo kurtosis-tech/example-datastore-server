@@ -3,7 +3,7 @@ module github.com/kurtosis-tech/example-datastore-server/server
 go 1.15
 
 require (
-	github.com/kurtosis-tech/example-datastore-server/api/golang v0.0.0-20211026183300-7a119ee79f8a
+	github.com/kurtosis-tech/example-datastore-server/api/golang v0.0.0-20211027184939-653b066e825c
 	github.com/kurtosis-tech/minimal-grpc-server/golang v0.0.0-20210921153930-d70d7667c51b
 	github.com/palantir/stacktrace v0.0.0-20161112013806-78658fd2d177
 	github.com/sirupsen/logrus v1.8.1

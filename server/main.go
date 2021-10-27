@@ -53,7 +53,7 @@ func runMain () error {
 	}
 	logrus.SetLevel(logLevel)
 
-	newRepository := map[string]string{}
+	newRepository := map[string]uint32{}
 	mutex := sync.Mutex{}
 
 	datastoreService := datastore_service.NewDatastoreService(newRepository, mutex)

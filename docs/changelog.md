@@ -2,6 +2,8 @@
 ### Breaking Changes
 * Updated protobuf file, `GetResponse.value` field type and `UpsertArgs.value` field type were changed from string to uint32
   * Users should use unit32 field type when are setting these values
+* Updated `repository` field type in `DatastoreService` object it has been changed from map[string]string type to map[string]uint32 
+  * Users should update their code when using the `NewDatastoreService` constructor, now the first parameter `repository` is map[string]uint32 type
 
 # 0.1.1
 ### Features
