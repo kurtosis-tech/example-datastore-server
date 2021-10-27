@@ -11,12 +11,12 @@ import (
 type DatastoreService struct {
 	// This embedding is required by gRPC
 	datastore_rpc_api_bindings.UnimplementedDatastoreServiceServer
-	repository map[string]string
+	keyValueStore map[string]string
 	mutex sync.Mutex
 }
 
-func NewDatastoreService(repository map[string]string, mutex sync.Mutex) *DatastoreService {
-	return &DatastoreService{repository: repository, mutex: mutex}
+func NewDatastoreService(keyValueStore map[string]string, mutex sync.Mutex) *DatastoreService {
+	return &DatastoreService{keyValueStore: keyValueStore, mutex: mutex}
 }
 
 func (datastoreService DatastoreService) IsAvailable(ctx context.Context, args *emptypb.Empty) (*emptypb.Empty, error) {
@@ -29,7 +29,7 @@ func (datastoreService DatastoreService) Exists(ctx context.Context, args *datas
 
 	key := args.Key
 
-	_, found := datastoreService.repository[key]
+	_, found := datastoreService.keyValueStore[key]
 
 	response := &datastore_rpc_api_bindings.ExistsResponse{
 		Exists: found,
@@ -44,7 +44,7 @@ func (datastoreService DatastoreService) Get(ctx context.Context, args *datastor
 
 	key := args.Key
 
-	value, found := datastoreService.repository[key]
+	value, found := datastoreService.keyValueStore[key]
 	if !found {
 		return nil, stacktrace.NewError("There is not record with key '%v' in the datastore", key)
 	}
@@ -63,7 +63,7 @@ func (datastoreService DatastoreService) Upsert(ctx context.Context, args *datas
 	key := args.Key
 	value := args.Value
 
-	datastoreService.repository[key] = value
+	datastoreService.keyValueStore[key] = value
 
 	return &emptypb.Empty{}, nil
 }

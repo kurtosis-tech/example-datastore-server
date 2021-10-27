@@ -53,10 +53,10 @@ func runMain () error {
 	}
 	logrus.SetLevel(logLevel)
 
-	newRepository := map[string]string{}
+	newKeyValueStore := map[string]string{}
 	mutex := sync.Mutex{}
 
-	datastoreService := datastore_service.NewDatastoreService(newRepository, mutex)
+	datastoreService := datastore_service.NewDatastoreService(newKeyValueStore, mutex)
 
 	datastoreServiceRegistrationFunc := func(grpcServer *grpc.Server) {
 		datastore_rpc_api_bindings.RegisterDatastoreServiceServer(grpcServer, datastoreService)
