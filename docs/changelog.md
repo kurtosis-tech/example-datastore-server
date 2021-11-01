@@ -1,4 +1,6 @@
 # TBD
+### Features
+* Added `datastore_rpc_api_consts` which contains constants related to the example API server (e.g. ListenProtocol)
 
 # 0.3.1
 ### Changes
