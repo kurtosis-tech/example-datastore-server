@@ -1,5 +1,9 @@
 # TBD
 
+# 0.3.2
+### Features
+* Added `datastore_rpc_api_consts` which contains constants related to the example API server (e.g. ListenProtocol)
+
 # 0.3.1
 ### Changes
 * Exported `EXAMPLE_DATASTORE_SERVER_VERSION` constant in Typescript library, allowing users to get it
