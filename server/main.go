@@ -10,7 +10,7 @@ import (
 	"github.com/kurtosis-tech/example-datastore-server/api/golang/datastore_rpc_api_bindings"
 	"github.com/kurtosis-tech/example-datastore-server/server/datastore_service"
 	minimal_grpc_server "github.com/kurtosis-tech/minimal-grpc-server/golang/server"
-	"github.com/palantir/stacktrace"
+	"github.com/kurtosis-tech/stacktrace"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"os"

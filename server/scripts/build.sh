@@ -34,11 +34,12 @@ fi
 echo "Tests succeeded"
 
 # Build binary for packaging inside an Alpine Linux image
-echo "Building example datastore server code '${MAIN_GO_FILEPATH}'..."
+echo "Building server main.go '${MAIN_GO_FILEPATH}'..."
 if ! CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o "${MAIN_BINARY_OUTPUT_FILEPATH}" "${MAIN_GO_FILEPATH}"; then
-  echo "Error: Code build of the example datastore server failed" >&2
+  echo "Error: An error occurred building the server code" >&2
   exit 1
 fi
+echo "Successfully built server code"
 
 # Generate Docker image tag
 get_docker_image_tag_script_filepath="${script_dirpath}/${GET_DOCKER_IMAGE_TAG_SCRIPT_FILENAME}"
@@ -52,7 +53,7 @@ dockerfile_filepath="${server_root_dirpath}/Dockerfile"
 image_name="${IMAGE_ORG_AND_REPO}:${docker_tag}"
 echo "Building example datastore server into a Docker image named '${image_name}'..."
 if ! docker build -t "${image_name}" -f "${dockerfile_filepath}" "${server_root_dirpath}"; then
-  echo "Error: Docker build of the example datastore server failed" >&2
+  echo "Error: Docker build of the server failed" >&2
   exit 1
 fi
-echo "Successfully built Docker image '${image_name}' containing the example datastore server"
+echo "Successfully built Docker image '${image_name}' containing the server"

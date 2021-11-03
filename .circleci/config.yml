@@ -9,6 +9,12 @@ parameters:
   docker-engine-version:
     type: string
     default: 20.10.7
+  go-version:
+    type: string
+    default: 1.15.13
+  node-version:
+    type: string
+    default: 14.17.1
 
 # NOTE: Because CircleCI jobs run on separate machines from each other, we duplicate steps (like checkout) between jobs. This is because doing the "correct" DRY
 #  refactoring of, "one job for checkout, one job for build Docker image, etc." would require a) persisting files between jobs and b) persisting Docker images between
@@ -16,9 +22,10 @@ parameters:
 #  images), so we run everything inside a single job.
 # See also: https://discuss.circleci.com/t/can-docker-images-be-preserved-between-jobs-in-a-workflow-without-a-manual-load-save/23388/12
 jobs:
+  # -- PR check jobs ------------------------------------------
   check_api_golang:
     docker:
-      - image: cimg/go:1.15.13
+      - image: "cimg/go:<< pipeline.parameters.go-version>>"
     steps:
       - checkout
 
@@ -29,16 +36,12 @@ jobs:
             circleci-agent step halt
           fi
 
-      # The 'git config' and 'go env' steps are to allow Go to read modules from our private Github repos
-      # The KURTOSISBOT_GITHUB_TOKEN is a secret provided at CI build time
-      - run: |
-          git config --global url."https://${KURTOSISBOT_GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-          go env -w "GOPRIVATE=github.com/kurtosis-tech/*"
-          api/golang/scripts/build.sh
+      # !!!!!!!!!! NOTE: We should NOT use our private Go repos here, because this API code will get published publicly !!!!!!!!
+      - run: api/golang/scripts/build.sh
 
   check_api_typescript:
     docker:
-      - image: cimg/node:14.17.1
+      - image: "cimg/node:<< pipeline.parameters.node-version>>"
     steps:
       - checkout
 
@@ -51,19 +54,9 @@ jobs:
 
       - run: api/typescript/scripts/build.sh
 
-  publish_typescript:
-    docker:
-      - image: cimg/node:14.17.1
-    steps:
-      - checkout
-      - run: api/typescript/scripts/build.sh
-      - npm-publisher/publish-from-package-version:
-          package-path: typescript
-          publish-token-variable: NPMJS_AUTH_TOKEN
-
   check_server_code:
     docker:
-      - image: cimg/go:1.15.13
+      - image: "cimg/go:<< pipeline.parameters.go-version >>"
     steps:
       - checkout
 
@@ -76,8 +69,7 @@ jobs:
 
       - setup_remote_docker:
           version: "<< pipeline.parameters.docker-engine-version>>"
-
-      - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - run: echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
 
       # The 'git config' and 'go env' steps are to allow Go to read modules from our private Github repos
       # The KURTOSISBOT_GITHUB_TOKEN is a secret provided at CI build time
@@ -85,10 +77,13 @@ jobs:
           git config --global url."https://${KURTOSISBOT_GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
           go env -w "GOPRIVATE=github.com/kurtosis-tech/*"
           server/scripts/build.sh
+  # -- End PR check jobs ---------------------------------------
 
-  push_server_artifacts:
+  # -- Publish jobs --------------------------------------------
+
+  publish_server_image:
     docker:
-      - image: cimg/go:1.15.13
+      - image: "cimg/go:<< pipeline.parameters.go-version >>"
     steps:
       - checkout
 
@@ -114,6 +109,17 @@ jobs:
           docker push "${image_name_with_version}"
           docker push "${image_name_no_version}"
 
+  publish_api_typescript:
+    docker:
+      - image: "cimg/node:<< pipeline.parameters.node-version>>"
+    steps:
+      - checkout
+      - run: api/typescript/scripts/build.sh
+      - npm-publisher/publish-from-package-version:
+          package-path: typescript
+          publish-token-variable: NPMJS_AUTH_TOKEN
+
+
 workflows:
   build:
     jobs:
@@ -126,9 +132,7 @@ workflows:
                 - develop
                 - master
       - check_api_golang:
-          context:
-            # This pulls in KurtosisBot's Github token, so that we can read from our private repos
-            - github-user
+          context: []
           filters:
             branches:
               ignore:
@@ -153,7 +157,7 @@ workflows:
       # -- End PR check jobs ---------------------------------------
 
       # -- Artifact-publishing jobs --------------------------------
-      - push_server_artifacts:
+      - publish_server_image:
           context:
             # This pulls in KurtosisBot's Github token, so that we can read from our private repos
             - github-user
@@ -164,7 +168,7 @@ workflows:
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       # TODO UNCOMMENT WHEN READY
-      #- publish_typescript:
+      #- publish_api_typescript:
       #    context:
       #      - npmjs-user
       #    filters:

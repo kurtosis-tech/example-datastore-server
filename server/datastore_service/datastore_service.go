@@ -3,7 +3,7 @@ package datastore_service
 import (
 	"context"
 	"github.com/kurtosis-tech/example-datastore-server/api/golang/datastore_rpc_api_bindings"
-	"github.com/palantir/stacktrace"
+	"github.com/kurtosis-tech/stacktrace"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"sync"
 )
