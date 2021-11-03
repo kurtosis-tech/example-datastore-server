@@ -1,5 +1,15 @@
 # TBD
 
+# 0.3.3
+### Features
+* Added a root `build.sh` for building everything in the repo (not called by CI)
+
+### Changes
+* Standardized repo structure in accordance with what we've settled on in Kurt Core
+
+### Fixes
+* The server now correctly uses the local version of the API
+
 # 0.3.2
 ### Features
 * Added `datastore_rpc_api_consts` which contains constants related to the example API server (e.g. ListenProtocol)

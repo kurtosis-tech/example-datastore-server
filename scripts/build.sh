@@ -10,16 +10,20 @@ root_dirpath="$(dirname "${script_dirpath}")"
 # ==================================================================================================
 #                                             Constants
 # ==================================================================================================
-RELEASE_SCRIPT_FILENAME="release-repo.sh"     # NOTE: Must be on the path; comes from devtools repo
-
-UPDATE_OWN_VERSION_CONSTS_SCRIPT_FILENAME="update-own-version-constants.sh"
-UPDATE_PACKAGE_VERSION_SCRIPT_FILENAME="update-package-versions.sh"
+BUILD_SCRIPT_RELATIVE_FILEPATHS=(
+    "api/golang/scripts/build.sh"
+    "api/typescript/scripts/build.sh"
+    "server/scripts/build.sh"
+)
 
 
 # ==================================================================================================
 #                                             Main Logic
 # ==================================================================================================
-if ! bash "${RELEASE_SCRIPT_FILENAME}" "${root_dirpath}" "${script_dirpath}/${UPDATE_OWN_VERSION_CONSTS_SCRIPT_FILENAME}" "${script_dirpath}/${UPDATE_PACKAGE_VERSION_SCRIPT_FILENAME}"; then
-    echo "Error: Couldn't cut the release" >&2
-    exit 1
-fi
+for build_script_rel_filepath in "${BUILD_SCRIPT_RELATIVE_FILEPATHS[@]}"; do
+    build_script_abs_filepath="${root_dirpath}/${build_script_rel_filepath}"
+    if ! bash "${build_script_abs_filepath}"; then
+        echo "Error: Build script '${build_script_abs_filepath}' failed" >&2
+        exit 1
+    fi
+done

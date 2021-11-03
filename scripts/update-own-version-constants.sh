@@ -53,7 +53,8 @@ fi
 #                                             Main Logic
 # ==================================================================================================
 echo "Updating the constants containing this library's version for all supported languages..."
-supported_langs_filepath="${root_dirpath}/${API_DIRNAME}/${SUPPORTED_LANGS_FILENAME}"
+api_dirpath="${root_dirpath}/${API_DIRNAME}"
+supported_langs_filepath="${api_dirpath}/${SUPPORTED_LANGS_FILENAME}"
 for lang in $(cat "${supported_langs_filepath}"); do
     constant_file_rel_filepath="${CONSTANT_FILE_RELATIVE_FILEPATHS["${lang}"]}"
     if [ -z "${constant_file_rel_filepath}" ]; then
@@ -61,7 +62,7 @@ for lang in $(cat "${supported_langs_filepath}"); do
         exit 1
     fi
 
-    constant_file_abs_filepath="${root_dirpath}/${API_DIRNAME}/${lang}/${constant_file_rel_filepath}"
+    constant_file_abs_filepath="${api_dirpath}/${lang}/${constant_file_rel_filepath}"
 
     pattern="${CONSTANT_PATTERNS["${lang}"]}"
     if [ -z "${pattern}" ]; then
