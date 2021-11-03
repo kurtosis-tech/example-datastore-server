@@ -1,4 +1,6 @@
 # TBD
+
+# 0.3.3
 ### Features
 * Added a root `build.sh` for building everything in the repo (not called by CI)
 
