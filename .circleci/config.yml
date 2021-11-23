@@ -14,7 +14,7 @@ parameters:
     default: 1.15.13
   node-version:
     type: string
-    default: 14.17.1
+    default: 16.13.0
 
 # NOTE: Because CircleCI jobs run on separate machines from each other, we duplicate steps (like checkout) between jobs. This is because doing the "correct" DRY
 #  refactoring of, "one job for checkout, one job for build Docker image, etc." would require a) persisting files between jobs and b) persisting Docker images between
@@ -116,7 +116,7 @@ jobs:
       - checkout
       - run: api/typescript/scripts/build.sh
       - npm-publisher/publish-from-package-version:
-          package-path: typescript
+          package-path: api/typescript
           publish-token-variable: NPMJS_AUTH_TOKEN
 
 
@@ -167,13 +167,12 @@ workflows:
               ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-      # TODO UNCOMMENT WHEN READY
-      #- publish_api_typescript:
-      #    context:
-      #      - npmjs-user
-      #    filters:
-      #      branches:
-      #        ignore: /.*/
-      #      tags:
-      #        only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+      - publish_api_typescript:
+          context:
+            - npmjs-user
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       # -- End artifact-publishing jobs ----------------------------
