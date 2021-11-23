@@ -1,5 +1,9 @@
 # TBD
 
+# 0.3.4
+### Features
+* Activated `publish_api_typescript` Circle Ci job to publish the Typescript version of the API
+
 # 0.3.3
 ### Features
 * Added a root `build.sh` for building everything in the repo (not called by CI)

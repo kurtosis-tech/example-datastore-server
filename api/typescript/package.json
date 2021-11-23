@@ -1,6 +1,7 @@
 {
-    "//": "Example datastore server Typescript client",
-    "version": "0.3.3",
+    "name": "example-datastore-server-api-lib",
+    "//": "NOTE: DO NOT UPDATE THIS VERSION MANUALLY - IT WILL BE UPDATED DURING THE RELEASE PROCESS!",
+    "version": "0.3.4",
     "description": "This repo contains a Typescript client for communicating with the datastore API server",
     "main": "./build/index",
     "types": "./build/index",
@@ -25,9 +26,9 @@
     "bugs": {
         "url": "https://github.com/kurtosis-tech/example-datastore-server/issues"
     },
-    "homepage": "https://github.com/kurtosis-tech/example-datastore-server#readme",
+    "homepage": "https://github.com/kurtosis-tech/example-datastore-server",
     "engines": {
-        "node": ">=14.17.0"
+        "node": ">=16.13.0"
     },
     "dependencies": {
         "google-protobuf": "^3.17.3",
