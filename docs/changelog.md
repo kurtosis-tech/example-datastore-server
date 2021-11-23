@@ -1,4 +1,6 @@
 # TBD
+
+# 0.3.4
 ### Features
 * Activated `publish_api_typescript` Circle Ci job to publish the Typescript version of the API
 
