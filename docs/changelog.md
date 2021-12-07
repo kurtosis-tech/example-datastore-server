@@ -1,4 +1,6 @@
 # TBD
+### Changes
+* Enabled debug logging
 
 # 0.4.0
 ### Changes
