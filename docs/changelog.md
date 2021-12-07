@@ -1,5 +1,9 @@
 # TBD
 
+# 0.4.1
+### Changes
+* Enabled debug logging
+
 # 0.4.0
 ### Changes
 * Regenerate the API libs with `@grpc/grpc-js` rather than `grpc`
