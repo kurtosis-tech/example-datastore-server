@@ -1,4 +1,6 @@
 # TBD
+
+# 0.4.2
 ### Fixes
 * Actually enable debug logging
 
