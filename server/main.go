@@ -28,7 +28,7 @@ const (
 	listenProtocol = "tcp"
 )
 
-var defaultKurtosisLogLevel = logrus.InfoLevel.String()
+var defaultKurtosisLogLevel = logrus.DebugLevel
 
 func main() {
 	// NOTE: we'll want to change the ForceColors to false if we ever want structured logging
@@ -36,7 +36,7 @@ func main() {
 		ForceColors:   true,
 		FullTimestamp: true,
 	})
-	logrus.SetLevel(logrus.DebugLevel)
+	logrus.SetLevel(defaultKurtosisLogLevel)
 
 	err := runMain()
 	if err != nil {
@@ -48,12 +48,6 @@ func main() {
 }
 
 func runMain () error {
-	logLevel, err := logrus.ParseLevel(defaultKurtosisLogLevel)
-	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred parsing the log level string '%v':", defaultKurtosisLogLevel)
-	}
-	logrus.SetLevel(logLevel)
-
 	newKeyValueStore := map[string]string{}
 	mutex := sync.Mutex{}
 

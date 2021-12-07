@@ -1,5 +1,9 @@
 # TBD
 
+# 0.4.2
+### Fixes
+* Actually enable debug logging
+
 # 0.4.1
 ### Changes
 * Enabled debug logging
