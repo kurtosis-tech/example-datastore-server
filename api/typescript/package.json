@@ -1,7 +1,7 @@
 {
     "name": "example-datastore-server-api-lib",
     "//": "NOTE: DO NOT UPDATE THIS VERSION MANUALLY - IT WILL BE UPDATED DURING THE RELEASE PROCESS!",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "This repo contains a Typescript client for communicating with the datastore API server",
     "main": "./build/index",
     "types": "./build/index",
