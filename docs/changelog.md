@@ -1,5 +1,9 @@
 # TBD
 
+### Features
+* Added gRPC web proto bindings
+
+
 # 0.4.2
 ### Fixes
 * Actually enable debug logging
