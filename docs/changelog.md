@@ -1,7 +1,7 @@
 # TBD
 
 ### Features
-* Added gRPC web proto bindings
+* Added gRPC web proto bindings and made small refactores
 
 
 # 0.4.2
