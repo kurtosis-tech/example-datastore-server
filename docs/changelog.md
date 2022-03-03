@@ -1,5 +1,8 @@
 # TBD
 
+### Fixes
+* Refactored 'DatastoreServiceClient' from 'export type' to only 'export', as we need the class itself and not it`s type.
+
 # 0.4.3
 
 ### Features
