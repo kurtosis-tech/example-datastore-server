@@ -9,25 +9,12 @@ root_dirpath="$(dirname "${script_dirpath}")"
 # ==================================================================================================
 #                                             Constants
 # ==================================================================================================
-API_DIRNAME="api"
-SUPPORTED_LANGS_FILENAME="supported-languages.txt"
-UPDATE_VERSION_IN_FILE_SCRIPT_FILENAME="update-version-in-file.sh" # From devtools; expected to be on PATH
+API_SUPPORTED_LANGS_REL_FILEPATH="supported-languages.txt"
 
-# Per-language filepath that needs updating to update the constant, RELATIVE TO THE LANGUAGE ROOT
-declare -A CONSTANT_FILE_RELATIVE_FILEPATHS
-
-# Per-language patterns matching the constant line, which will be used for updating the version
-declare -A CONSTANT_PATTERNS
-
-# Golang
-CONSTANT_FILE_RELATIVE_FILEPATHS["golang"]="example_datastore_server_version/example_datastore_server_version.go"
-CONSTANT_PATTERNS["golang"]="ExampleDatastoreServerVersion = \"%s\""
-
-# Typescript
-CONSTANT_FILE_RELATIVE_FILEPATHS["typescript"]="src/example_datastore_server_version/example_datastore_server_version.ts"
-CONSTANT_PATTERNS["typescript"]="EXAMPLE_DATASTORE_SERVER_VERSION: string = \"%s\""
-
-
+# Relative to root of repo
+declare -A REL_FILEPATH_UPDATE_PATTERNS
+REL_FILEPATH_UPDATE_PATTERNS["api/golang/example_datastore_server_version/example_datastore_server_version.go"]="ExampleDatastoreServerVersion = \"%s\""
+REL_FILEPATH_UPDATE_PATTERNS["api/typescript/src/example_datastore_server_version/example_datastore_server_version.ts"]="EXAMPLE_DATASTORE_SERVER_VERSION: string = \"%s\""
 
 # ==================================================================================================
 #                                       Arg Parsing & Validation
@@ -52,27 +39,14 @@ fi
 # ==================================================================================================
 #                                             Main Logic
 # ==================================================================================================
-echo "Updating the constants containing this library's version for all supported languages..."
-api_dirpath="${root_dirpath}/${API_DIRNAME}"
-supported_langs_filepath="${api_dirpath}/${SUPPORTED_LANGS_FILENAME}"
-for lang in $(cat "${supported_langs_filepath}"); do
-    constant_file_rel_filepath="${CONSTANT_FILE_RELATIVE_FILEPATHS["${lang}"]}"
-    if [ -z "${constant_file_rel_filepath}" ]; then
-        echo "Error: No relative filepath to a constant file that needs replacing was found for language '${lang}'; this script needs to be updated with this information" >&2
+echo "Updating own-version constants..."
+for rel_filepath in "${!REL_FILEPATH_UPDATE_PATTERNS[@]}"; do
+    replace_pattern="${REL_FILEPATH_UPDATE_PATTERNS["${rel_filepath}"]}"
+    constant_file_abs_filepath="${root_dirpath}/${rel_filepath}"
+    if ! $(kudet update-version-in-file "${constant_file_abs_filepath}" "${replace_pattern}" "${new_version}"); then
+        echo "Error: An error occurred setting new version '${new_version}' in constants file '${constant_file_abs_filepath}' using pattern '${replace_pattern}'" >&2
         exit 1
     fi
-
-    constant_file_abs_filepath="${api_dirpath}/${lang}/${constant_file_rel_filepath}"
-
-    pattern="${CONSTANT_PATTERNS["${lang}"]}"
-    if [ -z "${pattern}" ]; then
-        echo "Error: No replacement pattern was found for language '${lang}'; this script needs to be updated with this information" >&2
-        exit 1
-    fi
-
-    if ! "${UPDATE_VERSION_IN_FILE_SCRIPT_FILENAME}" "${constant_file_abs_filepath}" "${pattern}" "${new_version}"; then
-        echo "Error: An error occurred setting new version '${new_version}' in '${lang}' constants file '${to_update_abs_filepath}' using pattern '${replacement_pattern}'" >&2
-        exit 1
-    fi
+    echo "Successfully updated '${constant_file_abs_filepath}'"
 done
-echo "Successfully updated the constants containing this library's version have been updated for all supported languages"
+echo "Successfully updated all own-version constants"
