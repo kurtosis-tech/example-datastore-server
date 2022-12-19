@@ -13,8 +13,8 @@ API_SUPPORTED_LANGS_REL_FILEPATH="supported-languages.txt"
 
 # Relative to root of repo
 declare -A REL_FILEPATH_UPDATE_PATTERNS
-REL_FILEPATH_UPDATE_PATTERNS["golang/example_datastore_server_version/example_datastore_server_version.go"]="ExampleDatastoreServerVersion = \"%s\""
-REL_FILEPATH_UPDATE_PATTERNS["typescript/src/example_datastore_server_version/example_datastore_server_version.ts"]="EXAMPLE_DATASTORE_SERVER_VERSION: string = \"%s\""
+REL_FILEPATH_UPDATE_PATTERNS["api/golang/example_datastore_server_version/example_datastore_server_version.go"]="ExampleDatastoreServerVersion = \"%s\""
+REL_FILEPATH_UPDATE_PATTERNS["api/typescript/src/example_datastore_server_version/example_datastore_server_version.ts"]="EXAMPLE_DATASTORE_SERVER_VERSION: string = \"%s\""
 
 # ==================================================================================================
 #                                       Arg Parsing & Validation
