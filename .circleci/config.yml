@@ -138,20 +138,20 @@ workflows:
             branches:
               ignore:
                 - develop
-                - master
+                - main
       - check_api_golang:
           context: []
           filters:
             branches:
               ignore:
                 - develop
-                - master
+                - main
       - check_api_typescript:
           filters:
             branches:
               ignore:
                 - develop
-                - master
+                - main
       - check_server_code:
           context:
             # This pulls in KurtosisBot's Github token, so that we can read from our private repos
@@ -161,7 +161,7 @@ workflows:
             branches:
               ignore:
                 - develop
-                - master
+                - main
       # -- End PR check jobs ---------------------------------------
 
       # -- Artifact-publishing jobs --------------------------------
